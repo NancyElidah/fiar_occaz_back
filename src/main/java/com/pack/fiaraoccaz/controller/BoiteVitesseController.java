@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.pack.fiaraoccaz.dao.BoiteVitesseDao;
 import com.pack.fiaraoccaz.model.BoiteVitesse;
 
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/bv")
 public class BoiteVitesseController {
