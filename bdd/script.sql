@@ -1,4 +1,4 @@
-create database fiara_occaz;
+create database voiture_occasion;
 \c voiture_occasion
 
 -- SEQUENCE --
@@ -7,6 +7,7 @@ create sequence type_seq start 1;
 -- TABLE --
 create table utilisateur(
     iduser serial primary key,
+    nom varchar(100),
     email varchar(100),
     mdp varchar(100),
     etat int
@@ -88,6 +89,15 @@ create table commission(
     commission decimal(5, 2)
 );
 
+create table vente_mensuelle (
+    idvente serial primary key,
+    mois int,
+    annee int,
+    idtype int references type(idtype),
+    chiffre_affaire double precision
+);
+
+
 -- VIEW --
 create or replace view v_annonce as
 select a.idannonce, a.iduser, v.idvoiture, t.nom as type, m.nom as marque, mo.nom as modele, e.energie, bv.nom as boite_vitesse, v.annee, v.kilometrage, v.prix, c.couleur, p.nom as provenance, v.nbplace, v.nbporte, a.etat
@@ -108,6 +118,14 @@ from voiture v
 join type t on v.type = t.idtype
 group by v.type, t.nom, v.status;
 
+--modif
+create or replace view v_stat_type as
+select v.type as idtype, t.nom as type, extract(month from current_date) as mois, extract(year from current_date) as annee, count(v.status) as nombre, v.status
+from voiture v
+join type t on v.type = t.idtype
+group by v.type, t.nom, v.status, mois, annee;
+
+
 create or replace view v_stat_marque as
 select v.marque as idmarque, m.nom as marque, count(v.status) as nombre, v.status
 from voiture v
@@ -119,3 +137,24 @@ select v.modele as idmodele, m.nom as modele, count(v.status) as nombre, v.statu
 from voiture v
 join modele m on v.marque = m.idmodele
 group by v.modele, m.nom, v.status;
+
+
+-- Création de la vue pour les chiffres d'affaires
+create or replace view v_chiffres_affaires as
+select
+    v.idvoiture,
+    v.prix as prix_vente,
+    a.etat as etat_annonce,
+    c.commission,
+    v.prix - c.commission as chiffre_affaire_net
+from
+    voiture v
+join
+    annonce a on v.idvoiture = a.idvoiture
+join
+    commission c on v.type = c.idtype;
+
+--utilisation de la vue pour obtenir le chiffre d'affaires total
+select sum(chiffre_affaire_net) as chiffre_affaires_total
+from v_chiffres_affaires;
+
