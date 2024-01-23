@@ -1,11 +1,9 @@
 package com.pack.fiaraoccaz.repository;
 
-import java.util.List;
-
+import com.pack.fiaraoccaz.entity.Voiture;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.pack.fiaraoccaz.model.Voiture;
+public interface VoitureRepository extends JpaRepository<Voiture, Long> {
 
-public interface VoitureRepository extends JpaRepository<Voiture, Integer> {
-    
+
 }
