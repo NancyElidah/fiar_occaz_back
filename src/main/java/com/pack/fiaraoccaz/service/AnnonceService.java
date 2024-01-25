@@ -128,4 +128,19 @@ public class AnnonceService {
         return result; 
     }
 
+    public Annonce updateById(Long id, Annonce updatedAnnonce) {
+        
+        if (annonceRepository.existsById(id)) {
+            
+            updatedAnnonce.setIdAnnonce(id);
+            return annonceRepository.save(updatedAnnonce);
+        } else {
+           
+            return null;
+        }
+    }
+    
+
+    
+
 }
