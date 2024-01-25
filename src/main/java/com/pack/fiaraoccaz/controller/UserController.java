@@ -25,4 +25,8 @@ public class UserController {
             return "Identifiants incorrects.";
         }
     }
+
+    public User signUp(@RequestBody User user){
+        return userService.signUp(user);
+    }
 }
