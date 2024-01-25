@@ -14,5 +14,5 @@ public class UserService {
         return userRepository.findByEmailAndPassword(email, password);
     }
 
-    // Autres méthodes de gestion des utilisateurs si nécessaire
+    
 }
