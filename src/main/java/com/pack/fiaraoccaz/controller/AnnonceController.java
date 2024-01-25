@@ -70,13 +70,16 @@ public class AnnonceController {
     }
 
     @PutMapping("/{id}")
-    public void updateById(@PathVariable int id, @RequestBody Annonce comm){
-        Annonce c = annonceService.findById(id);
-        if (c != null) {
-            comm.setIdAnnonce(id);
-            annonceService.save(comm);
+    public ResponseEntity<Annonce> updateById(@PathVariable Long id, @RequestBody Annonce updatedAnnonce) {
+        Annonce updatedAnnonceResult = annonceService.updateById(id, updatedAnnonce);
+    
+        if (updatedAnnonceResult != null) {
+            return ResponseEntity.ok(updatedAnnonceResult);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
+    
 
 
 }

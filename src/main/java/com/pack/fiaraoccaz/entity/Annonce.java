@@ -44,7 +44,7 @@ public class Annonce{
     public Long getIdAnnonce(){
         return idannonce;
     }
-    public void setIdAnnonce(int id){
+    public void setIdAnnonce(Long id){
         this.idannonce = idannonce;
     }
 
