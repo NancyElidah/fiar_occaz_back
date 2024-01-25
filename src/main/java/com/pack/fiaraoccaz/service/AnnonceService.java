@@ -2,6 +2,9 @@ package com.pack.fiaraoccaz.service;
 
 import com.pack.fiaraoccaz.entity.Annonce;
 import com.pack.fiaraoccaz.repository.AnnonceRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +29,21 @@ public class AnnonceService {
         return null; // L'annonce n'a pas été trouvée
     }
 
-  
+    public List<Annonce> findAll(){
+        List<Annonce> annoncelist = annonceRepository.findAll();
+        return annoncelist;
+    }
+
+    public void save(Annonce c){
+        annonceRepository.save(c);
+    }
+
+    public void deleteById(int id) {
+        annonceRepository.deleteById((long) id);
+    }
+
+    public Annonce findById(int id){
+        Annonce result = annonceRepository.findById((long) id).orElse(null);
+        return result; 
+    }
 }
