@@ -2,7 +2,11 @@ package com.pack.fiaraoccaz.controller;
 
 import com.pack.fiaraoccaz.entity.Annonce;
 import com.pack.fiaraoccaz.service.AnnonceService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -24,6 +28,7 @@ public class AnnonceController {
         return annonceService.validerAnnonce(idAnnonce);
     }
 
+
     @GetMapping("/recherche")
     public List<Annonce> rechercheAvancee(
             @RequestParam(required = false) String motCle,
@@ -42,4 +47,36 @@ public class AnnonceController {
             @RequestParam(required = false) int status ) {
         return annonceService.rechercheAvancee(motCle, type, marque, modele, energie, boite_vitesse, annee, kilometrage, prix, couleur, pays, nbplace, nbporte, status );
     }
+
+    @PostMapping
+    public void save(@RequestBody Annonce comm){
+        annonceService.save(comm);
+    }
+
+    @GetMapping
+    public List<Annonce> findAll(){
+        return annonceService.findAll();
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable int id){
+        annonceService.deleteById(id);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Annonce> findById(@PathVariable int id){
+        Annonce result = annonceService.findById(id);
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("/{id}")
+    public void updateById(@PathVariable int id, @RequestBody Annonce comm){
+        Annonce c = annonceService.findById(id);
+        if (c != null) {
+            comm.setIdAnnonce(id);
+            annonceService.save(comm);
+        }
+    }
+
+
 }

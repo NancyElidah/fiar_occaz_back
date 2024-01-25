@@ -1,5 +1,8 @@
 package com.pack.fiaraoccaz.entity;
 
+import com.pack.fiaraoccaz.model.BoiteVitesse;
+import com.pack.fiaraoccaz.model.Modele;
+
 import jakarta.persistence.*;
 
 @Entity

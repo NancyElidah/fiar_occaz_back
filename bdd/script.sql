@@ -97,10 +97,15 @@ create table vente_mensuelle (
     chiffre_affaire double precision
 );
 
+create table favoris(
+    idfavoris serial primary key,
+    iduser int references utilisateur(iduser),
+    idannonce int references annonce(idannonce)
+);
 
 -- VIEW --
 create or replace view v_annonce as
-select a.idannonce, a.iduser, v.idvoiture, t.nom as type, m.nom as marque, mo.nom as modele, e.energie, bv.nom as boite_vitesse, v.annee, v.kilometrage, v.prix, c.couleur, p.nom as provenance, v.nbplace, v.nbporte, a.etat
+select a.idannonce, a.iduser, v.idvoiture, v.type as idtype, t.nom as type, v.marque as idmarque, m.nom as marque, v.modele as idmodele, mo.nom as modele, v.energie as idenergie, e.energie, v.boite_vitesse as idbv, bv.nom as boite_vitesse, v.annee, v.kilometrage, v.prix, v.couleur as idcouleur, c.couleur, v.provenance as idpays, p.nom as provenance, v.nbplace, v.nbporte, a.etat
 from annonce a
 join voiture v on a.idvoiture = v.idvoiture
 join utilisateur u on a.iduser = u.iduser
