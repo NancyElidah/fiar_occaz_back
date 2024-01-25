@@ -1,6 +1,7 @@
 package com.pack.fiaraoccaz.entity;
 
 import jakarta.persistence.*;
+import java.util.*;
 
 @Entity
 @Table(name = "utilisateur")
@@ -22,6 +23,9 @@ public class User {
 
     @Column(name = "etat", nullable = false)
     private int etat;
+
+    @OneToMany(mappedBy = "user")
+    private List<Annonce> annonces = new ArrayList<>();
 
     // Constructeur par défaut
     public User() {
@@ -75,5 +79,13 @@ public class User {
 
     public void setEtat(int etat) {
         this.etat = etat;
+    }
+
+    public List<Annonce> getAnnonces() {
+        return annonces;
+    }
+
+    public void setAnnonces(List<Annonce> annonces) {
+        this.annonces = annonces;
     }
 }
