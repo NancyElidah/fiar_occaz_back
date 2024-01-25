@@ -3,13 +3,12 @@ package com.pack.fiaraoccaz.service;
 import com.pack.fiaraoccaz.entity.Annonce;
 import com.pack.fiaraoccaz.entity.User;
 import com.pack.fiaraoccaz.repository.AnnonceRepository;
-<<<<<<< Updated upstream
 
 import java.util.List;
 
-=======
+
 import com.pack.fiaraoccaz.repository.UserRepository;
->>>>>>> Stashed changes
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.jpa.domain.Specification;
@@ -97,8 +96,6 @@ public class AnnonceService {
         return annonceRepository.findAll(specification);
     }
 
-<<<<<<< Updated upstream
-=======
 
     public List<Annonce> getHistoriqueAnnoncesUtilisateur(Long idUtilisateur) {
         Optional<User> userOptional = userRepository.findById(idUtilisateur);
@@ -111,7 +108,7 @@ public class AnnonceService {
         return Collections.emptyList();
     }
     
->>>>>>> Stashed changes
+
   
     public List<Annonce> findAll(){
         List<Annonce> annoncelist = annonceRepository.findAll();

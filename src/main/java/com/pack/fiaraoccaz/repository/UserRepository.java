@@ -4,10 +4,6 @@ import com.pack.fiaraoccaz.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;  
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmailAndPassword(String email, String password);
