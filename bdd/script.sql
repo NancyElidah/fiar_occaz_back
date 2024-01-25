@@ -97,6 +97,11 @@ create table vente_mensuelle (
     chiffre_affaire double precision
 );
 
+create table favoris(
+    idfavoris serial primary key,
+    iduser int references utilisateur(iduser),
+    idannonce int references annonce(idannonce)
+);
 
 -- VIEW --
 create or replace view v_annonce as
