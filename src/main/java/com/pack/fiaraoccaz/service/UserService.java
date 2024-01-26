@@ -15,9 +15,13 @@ public class UserService {
     }
     public User findUser(Long id){
         return userRepository.findById(id).get();
+
     }
 
     public User signUp(User user){
         return userRepository.save(user);
+
     }
+
+   
 }
