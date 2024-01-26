@@ -22,9 +22,6 @@ public class Annonce{
     @Column(name = "etat")
     private int etat;
 
-    @ManyToOne
-    @JoinColumn(name = "iduser")
-    private User user;
 
     // Constructeur par défaut
     public Annonce() {
