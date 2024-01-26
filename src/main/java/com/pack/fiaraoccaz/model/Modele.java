@@ -9,7 +9,7 @@ public class Modele {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idmodele")
     private int idModele;
-    @Column(name = "nom")
+    @Column(name = "nom" , nullable = false)
     private String nom;
 
     public int getIdModele() {
