@@ -11,12 +11,10 @@ public class Favoris {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idfavoris")
     int idfavoris;
-    @ManyToMany
-    @JoinColumn(name = "iduser")
-    User user;
-    @ManyToMany
-    @JoinColumn(name = "idannonce")
-    Annonce annonce;
+    @Column(name = "iduser")
+    int iduser;
+    @Column(name = "idannonce")
+    int idannonce;
 
     public int getIdfavoris() {
         return idfavoris;
@@ -24,16 +22,16 @@ public class Favoris {
     public void setIdfavoris(int idfavoris) {
         this.idfavoris = idfavoris;
     }
-    public User getUser() {
-        return user;
+    public int getIduser() {
+        return iduser;
     }
-    public void setUser(User user) {
-        this.user = user;
+    public void setIduser(int iduser) {
+        this.iduser = iduser;
     }
-    public Annonce getAnnonce() {
-        return annonce;
+    public int getIdannonce() {
+        return idannonce;
     }
-    public void setAnnonce(Annonce annonce) {
-        this.annonce = annonce;
+    public void setIdannonce(int idannonce) {
+        this.idannonce = idannonce;
     }
 }
