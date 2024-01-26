@@ -2,6 +2,10 @@ package com.pack.fiaraoccaz.controller;
 
 import com.pack.fiaraoccaz.entity.Energie;
 import com.pack.fiaraoccaz.service.EnergieService;
+import com.pack.fiaraoccaz.entity.Token;
+import com.pack.fiaraoccaz.entity.User;
+import com.pack.fiaraoccaz.repository.TokenRepository;
+import com.pack.fiaraoccaz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,29 +18,68 @@ import java.util.Optional;
 public class EnergieController {
 
     private final EnergieService energieService;
+    @Autowired
+    private TokenRepository tokenRe;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     public EnergieController(EnergieService energieService) {
         this.energieService = energieService;
     }
 
-    @GetMapping
-    public List<Energie> getAllEnergies() {
-        return energieService.getAllEnergies();
+    @GetMapping("/{token}/getAll")
+    public List<Energie> getAllEnergies(@PathVariable("token") String token,
+                                        @RequestParam("id") String idU) throws Exception {
+        Token tok = tokenRe.findIdUtilsateurFromToken(token);
+        Long id = Long.valueOf(idU);
+
+        User user = userService.findUser(id);
+        if (tok != null && tok.isValid(id) && user.getEtat() == 10) {
+            return energieService.getAllEnergies();
+        }
+        return null; 
     }
 
-    @GetMapping("/{id}")
-    public Optional<Energie> getEnergieById(@PathVariable Long id) {
-        return energieService.getEnergieById(id);
+    @GetMapping("/{token}/getById/{id}")
+    public Optional<Energie> getEnergieById(@PathVariable Long id,
+                                            @PathVariable("token") String token,
+                                            @RequestParam("id") String idU) throws Exception {
+        Token tok = tokenRe.findIdUtilsateurFromToken(token);
+        id = Long.valueOf(idU);
+
+        User user = userService.findUser(id);
+        if (tok != null && tok.isValid(id) && user.getEtat() == 10) {
+            return energieService.getEnergieById(id);
+        }
+        return Optional.empty(); 
     }
 
-    @PostMapping
-    public Energie saveEnergie(@RequestBody Energie energie) {
-        return energieService.saveEnergie(energie);
+    @PostMapping("/{token}/save")
+    public Energie saveEnergie(@RequestBody Energie energie,
+                                @PathVariable("token") String token,
+                                @RequestParam("id") String idU) throws Exception {
+        Token tok = tokenRe.findIdUtilsateurFromToken(token);
+        Long id = Long.valueOf(idU);
+
+        User user = userService.findUser(id);
+        if (tok != null && tok.isValid(id) && user.getEtat() == 10) {
+            return energieService.saveEnergie(energie);
+        }
+        return null;
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteEnergie(@PathVariable Long id) {
-        energieService.deleteEnergie(id);
+    @DeleteMapping("/{token}/delete/{id}")
+    public void deleteEnergie(@PathVariable Long id,
+                              @PathVariable("token") String token,
+                              @RequestParam("id") String idU) throws Exception {
+        Token tok = tokenRe.findIdUtilsateurFromToken(token);
+        id = Long.valueOf(idU);
+
+        User user = userService.findUser(id);
+        if (tok != null && tok.isValid(id) && user.getEtat() == 10) {
+            energieService.deleteEnergie(id);
+        }
+        
     }
 }
