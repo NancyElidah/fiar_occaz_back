@@ -163,8 +163,12 @@ join
 select sum(chiffre_affaire_net) as chiffre_affaires_total
 from v_chiffres_affaires;
 
+
 CREATE TABLE token (
     id serial PRIMARY KEY ,
     id_utilisateur int REFERENCES utilisateur(iduser),
     token VARCHAR(100),
     date_expiration DATE 
+
+);
+
