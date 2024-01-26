@@ -22,12 +22,15 @@ public class Annonce{
     @Column(name = "etat")
     private int etat;
 
+    @ManyToOne
+    @JoinColumn(name = "iduser")
+    private User user;
 
-    //constructeur par defaut
-
-    public Annonce(){
-
+    // Constructeur par défaut
+    public Annonce() {
     }
+
+
     //Constructeur avec parametres
     public Annonce(Long idannonce, User iduser, Voiture idvoiture, int etat){
         this.idannonce = idannonce;
@@ -41,7 +44,7 @@ public class Annonce{
     public Long getIdAnnonce(){
         return idannonce;
     }
-    public void setIdAnnonce(int id){
+    public void setIdAnnonce(Long id){
         this.idannonce = idannonce;
     }
 
@@ -64,6 +67,14 @@ public class Annonce{
     }
     public void setEtat(int etat){
         this.etat = etat;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 
