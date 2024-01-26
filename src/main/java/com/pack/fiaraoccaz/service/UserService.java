@@ -13,6 +13,9 @@ public class UserService {
     public User loginUser(String email, String password) {
         return userRepository.findByEmailAndPassword(email, password);
     }
+    public User findUser(Long id){
+        return userRepository.findById(id).get();
+    }
 
     // Autres méthodes de gestion des utilisateurs si nécessaire
 }
