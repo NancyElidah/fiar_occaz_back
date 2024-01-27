@@ -143,6 +143,11 @@ from voiture v
 join modele m on v.marque = m.idmodele
 group by v.modele, m.nom, v.status;
 
+create or replace view v_commission as
+select c.idtype, t.nom, c.commission
+from commission c
+join type t on c.idtype = t.idtype;
+
 
 -- Création de la vue pour les chiffres d'affaires
 create or replace view v_chiffres_affaires as
