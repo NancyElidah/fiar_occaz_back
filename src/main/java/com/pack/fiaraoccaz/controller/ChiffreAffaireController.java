@@ -73,7 +73,7 @@ public class ChiffreAffaireController {
         if (tok != null && tok.isValid(id) && user.getEtat() == 10) {
             return chiffreAffaireService.calculerChiffreAffaireNet(prixVente, etatAnnonce, commission);
         }
-        return 0; 
+        return 0;
     }
 
     // Endpoint pour enregistrer une nouvelle vente mensuelle
