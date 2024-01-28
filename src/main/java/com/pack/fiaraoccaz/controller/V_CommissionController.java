@@ -14,7 +14,7 @@ import com.pack.fiaraoccaz.model.V_Commission;
 import com.pack.fiaraoccaz.repository.TokenRepository;
 import com.pack.fiaraoccaz.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "https://earnest-gumption-0c0eac.netlify.app")
 @RestController
 @RequestMapping("/v_commission")
 public class V_CommissionController {
