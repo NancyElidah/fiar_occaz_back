@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.pack.fiaraoccaz.dao.BoiteVitesseDao;
 import com.pack.fiaraoccaz.model.BoiteVitesse;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "https://earnest-gumption-0c0eac.netlify.app")
 @RestController
 @RequestMapping("/bv")
 public class BoiteVitesseController {

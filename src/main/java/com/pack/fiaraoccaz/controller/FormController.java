@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.pack.fiaraoccaz.dao.FormDao;
 import com.pack.fiaraoccaz.model.Form;
 
+@CrossOrigin(origins = "https://earnest-gumption-0c0eac.netlify.app")
 @RestController
 @RequestMapping("/form")
 public class FormController {

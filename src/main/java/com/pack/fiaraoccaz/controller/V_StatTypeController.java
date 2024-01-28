@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.pack.fiaraoccaz.dao.V_StatTypeDao;
 import com.pack.fiaraoccaz.model.V_StatType;
 
+@CrossOrigin(origins = "https://earnest-gumption-0c0eac.netlify.app")
 @RestController
 @RequestMapping("/v_stat_type")
 public class V_StatTypeController {

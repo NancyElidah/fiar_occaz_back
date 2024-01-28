@@ -18,4 +18,8 @@ public class UserService {
     }
 
     // Autres méthodes de gestion des utilisateurs si nécessaire
+
+    public User insertUser(User user){
+        return userRepository.save(user);
+    }
 }

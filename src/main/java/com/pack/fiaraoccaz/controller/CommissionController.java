@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.pack.fiaraoccaz.dao.CommissionDao;
 import com.pack.fiaraoccaz.model.Commission;
 
+@CrossOrigin(origins = "https://earnest-gumption-0c0eac.netlify.app")
 @RestController
 @RequestMapping("/commission")
 public class CommissionController {
