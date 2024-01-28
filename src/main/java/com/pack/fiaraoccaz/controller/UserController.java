@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "https://earnest-gumption-0c0eac.netlify.app")
 @RestController
 public class UserController {
 
@@ -69,5 +71,13 @@ public class UserController {
         return map ; 
     }
 
+    @GetMapping("/{id}")
+    public User finUser(@PathVariable Long id){
+        return userService.findUser(id);
+    }
 
+    @PostMapping("sign_up")
+    public void signUp (@RequestBody User user){
+        userService.insertUser(user);
+    }
 }

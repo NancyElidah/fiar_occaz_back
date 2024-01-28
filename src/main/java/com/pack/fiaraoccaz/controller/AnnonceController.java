@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@CrossOrigin(origins = "https://earnest-gumption-0c0eac.netlify.app")
 @RestController
 @RequestMapping("/api/annonces")
 public class AnnonceController {

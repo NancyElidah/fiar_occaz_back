@@ -8,14 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.pack.fiaraoccaz.dao.ModeleDao;
-// import com.pack.fiaraoccaz.dto.TokenUser;
 import com.pack.fiaraoccaz.entity.Token;
 import com.pack.fiaraoccaz.entity.User;
 import com.pack.fiaraoccaz.model.Modele;
 import com.pack.fiaraoccaz.repository.TokenRepository;
 import com.pack.fiaraoccaz.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:3000/")
+
+@CrossOrigin(origins = "https://earnest-gumption-0c0eac.netlify.app")
 @RestController
 @RequestMapping("/modele")
 public class ModeleController {

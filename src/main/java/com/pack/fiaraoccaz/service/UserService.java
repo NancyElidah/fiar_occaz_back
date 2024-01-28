@@ -20,10 +20,9 @@ public class UserService {
 
     }
 
-    public User signUp(User user){
+    // Autres méthodes de gestion des utilisateurs si nécessaire
+
+    public User insertUser(User user){
         return userRepository.save(user);
-
     }
-
-   
 }
