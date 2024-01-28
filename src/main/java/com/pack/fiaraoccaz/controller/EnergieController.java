@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "https://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/api/energies")
 public class EnergieController {
@@ -28,9 +28,9 @@ public class EnergieController {
         this.energieService = energieService;
     }
 
-    @GetMapping("/{token}/getAll")
+    @GetMapping("/{token}/getAll/{id}")
     public List<Energie> getAllEnergies(@PathVariable("token") String token,
-                                        @RequestParam("id") String idU) throws Exception {
+                                        @PathVariable("id") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         Long id = Long.valueOf(idU);
 
@@ -41,10 +41,10 @@ public class EnergieController {
         return null; 
     }
 
-    @GetMapping("/{token}/getById/{id}")
+    @GetMapping("/{token}/getById/{id}/{idU}")
     public Optional<Energie> getEnergieById(@PathVariable Long id,
                                             @PathVariable("token") String token,
-                                            @RequestParam("id") String idU) throws Exception {
+                                            @PathVariable("idU") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         id = Long.valueOf(idU);
 
@@ -55,10 +55,10 @@ public class EnergieController {
         return Optional.empty(); 
     }
 
-    @PostMapping("/{token}/save")
+    @PostMapping("/{token}/save/{id}")
     public Energie saveEnergie(@RequestBody Energie energie,
                                 @PathVariable("token") String token,
-                                @RequestParam("id") String idU) throws Exception {
+                                @PathVariable("id") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         Long id = Long.valueOf(idU);
 
@@ -69,10 +69,10 @@ public class EnergieController {
         return null;
     }
 
-    @DeleteMapping("/{token}/delete/{id}")
+    @DeleteMapping("/{token}/delete/{id}/idU")
     public void deleteEnergie(@PathVariable Long id,
                               @PathVariable("token") String token,
-                              @RequestParam("id") String idU) throws Exception {
+                              @RequestParam("idU") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         id = Long.valueOf(idU);
 

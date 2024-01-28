@@ -14,7 +14,7 @@ import com.pack.fiaraoccaz.model.Commission;
 import com.pack.fiaraoccaz.repository.TokenRepository;
 import com.pack.fiaraoccaz.service.UserService;
 
-@CrossOrigin(origins = "https://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/commission")
 public class CommissionController {
@@ -30,6 +30,8 @@ public class CommissionController {
 
     @PostMapping("/{token}/add/{id}")
     public String save(@RequestBody Commission comm, @PathVariable("token") String token ,@PathVariable("id") String idU){
+        System.out.println(comm.getCommission());
+        System.out.println(comm.getIdtype());
         Token tok = tokenRe.findIdUtilsateurFromToken(token); 
         Long id =Long.valueOf(idU) ;
 

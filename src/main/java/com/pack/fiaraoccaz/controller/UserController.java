@@ -8,7 +8,6 @@ import com.pack.fiaraoccaz.util.TokenG;
 
 import java.util.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin(origins = "https://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 public class UserController {
 
@@ -32,7 +31,9 @@ public class UserController {
         User user = userService.loginUser(request.getEmail(), request.getPassword());
         String token = "vide";
         HashMap<String,Object> map = new HashMap<>();
+        System.out.println(token);
         if (user != null) {
+            System.out.println(user.getIdUser());
             Token tok = tokenRe.findTokenByUtilisateur(user.getIdUser());
             Date date = new Date(System.currentTimeMillis());
             if(tok!=null && tok.getDate_expiration().after(date)){
@@ -62,6 +63,8 @@ public class UserController {
                     map.put("status",user.getEtat());
                 }
             }
+        }else{
+            System.out.println("null beeeee");
         }
         return map ; 
     }

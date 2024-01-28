@@ -13,6 +13,7 @@ import com.pack.fiaraoccaz.model.V_Annonce;
 import com.pack.fiaraoccaz.repository.TokenRepository;
 import com.pack.fiaraoccaz.service.UserService;
 
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/v_annonce")
 public class V_AnnonceController {

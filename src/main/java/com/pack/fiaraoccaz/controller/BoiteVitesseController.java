@@ -14,7 +14,7 @@ import com.pack.fiaraoccaz.model.BoiteVitesse;
 import com.pack.fiaraoccaz.repository.TokenRepository;
 import com.pack.fiaraoccaz.service.UserService;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/bv")
 public class BoiteVitesseController {
@@ -72,8 +72,8 @@ public class BoiteVitesseController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/{id}")
-    public void updateteById(@PathVariable int id, @RequestBody BoiteVitesse bv){
+    @PutMapping("/{token}/update/{idU}/{id}")
+    public void updateteById(@PathVariable("token") String token , @PathVariable("idU") String idU ,@PathVariable int id, @RequestBody BoiteVitesse bv){
         BoiteVitesse f = bvDao.findById(id);
         if (f != null) {
             bv.setIdBV(id);

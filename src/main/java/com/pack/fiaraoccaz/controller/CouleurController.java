@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "https://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("api/couleurs")
 public class CouleurController {
@@ -28,10 +28,10 @@ public class CouleurController {
         this.couleurService = couleurService;
     }
 
-    @PostMapping("/{token}/create")
+    @PostMapping("/{token}/create/{id}")
     public Couleur createCouleur(@RequestBody Couleur couleur,
                                  @PathVariable("token") String token,
-                                 @RequestParam("id") String idU) throws Exception {
+                                 @PathVariable("id") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         Long id = Long.valueOf(idU);
 
@@ -42,9 +42,9 @@ public class CouleurController {
         return null; 
     }
 
-    @GetMapping("/{token}/getAll")
+    @GetMapping("/{token}/getAll/{id}")
     public List<Couleur> getAllCouleurs(@PathVariable("token") String token,
-                                       @RequestParam("id") String idU) throws Exception {
+                                       @PathVariable("id") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         Long id = Long.valueOf(idU);
 
@@ -55,10 +55,10 @@ public class CouleurController {
         return null; 
     }
 
-    @GetMapping("/{token}/getById/{id}")
+    @GetMapping("/{token}/getById/{id}/{idU}")
     public Optional<Couleur> getCouleurById(@PathVariable Long id,
                                             @PathVariable("token") String token,
-                                            @RequestParam("id") String idU) throws Exception {
+                                            @PathVariable("idU") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         id = Long.valueOf(idU);
 
@@ -69,11 +69,11 @@ public class CouleurController {
         return Optional.empty(); 
     }
 
-    @PutMapping("/{token}/update/{id}")
+    @PutMapping("/{token}/update/{id}/{idU}")
     public Couleur updateCouleur(@PathVariable Long id,
                                  @RequestBody Couleur newCouleur,
                                  @PathVariable("token") String token,
-                                 @RequestParam("id") String idU) throws Exception {
+                                 @PathVariable("idU") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         id = Long.valueOf(idU);
 
@@ -84,10 +84,10 @@ public class CouleurController {
         return null; 
     }
 
-    @DeleteMapping("/{token}/delete/{id}")
+    @DeleteMapping("/{token}/delete/{id}/{idU}")
     public void deleteCouleur(@PathVariable Long id,
                               @PathVariable("token") String token,
-                              @RequestParam("id") String idU) throws Exception {
+                              @PathVariable("idU") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         id = Long.valueOf(idU);
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "https://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/api/voitures")
 public class VoitureController {
@@ -24,8 +24,8 @@ public class VoitureController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{token}/getAll")
-    public List<Voiture> getAllVoitures(@PathVariable("token") String token, @RequestParam("id") String idU) throws Exception {
+    @GetMapping("/{token}/getAll/{id}")
+    public List<Voiture> getAllVoitures(@PathVariable("token") String token, @PathVariable("id") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         Long id = Long.valueOf(idU);
 

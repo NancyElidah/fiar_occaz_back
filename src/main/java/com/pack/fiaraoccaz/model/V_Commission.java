@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Immutable;
 
 import jakarta.persistence.*;
 
-@Entity(name = "v_commision")
+@Entity(name = "v_commission")
 @Immutable
 public class V_Commission {
     @Id

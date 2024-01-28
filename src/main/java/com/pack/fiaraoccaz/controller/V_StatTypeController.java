@@ -13,6 +13,7 @@ import com.pack.fiaraoccaz.model.V_StatType;
 import com.pack.fiaraoccaz.repository.TokenRepository;
 import com.pack.fiaraoccaz.service.UserService;
 
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/v_stat_type")
 public class V_StatTypeController {

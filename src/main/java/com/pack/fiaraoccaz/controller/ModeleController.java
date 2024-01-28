@@ -15,7 +15,7 @@ import com.pack.fiaraoccaz.model.Modele;
 import com.pack.fiaraoccaz.repository.TokenRepository;
 import com.pack.fiaraoccaz.service.UserService;
 
-
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/modele")
 public class ModeleController {
@@ -75,12 +75,17 @@ public class ModeleController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/{id}")
-    public void updateById(@PathVariable int id, @RequestBody Modele modele){
+    @PutMapping("/{token}/update/{id}/{idU}")
+    public void updateById(@PathVariable int id, @PathVariable("token") String token ,@PathVariable("idU") String idU, @RequestBody Modele modele){
         Modele f = modeleDao.findById(id);
+        Token tok = tokenRe.findIdUtilsateurFromToken(token); 
+        Long iduser =Long.valueOf(idU) ;
+
+        User user = userService.findUser(iduser);
+        if(tok!=null && tok.isValid(iduser) && user.getEtat()==10){
         if (f != null) {
             modele.setIdModele(id);
             modeleDao.save(modele);
-        }
+        }}
     }
 }

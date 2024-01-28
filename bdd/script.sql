@@ -148,7 +148,6 @@ select c.idtype, t.nom, c.commission
 from commission c
 join type t on c.idtype = t.idtype;
 
-
 -- Création de la vue pour les chiffres d'affaires
 create or replace view v_chiffres_affaires as
 select

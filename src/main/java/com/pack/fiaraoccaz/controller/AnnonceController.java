@@ -30,11 +30,11 @@ public class AnnonceController {
     private UserService userService;
 
 
-    @PostMapping("/{token}/valider/{idAnnonce}")
+    @PostMapping("/{token}/valider/{idAnnonce}/{idU}")
     public ResponseEntity<?> validerAnnonce(
             @PathVariable Long idAnnonce,
             @PathVariable("token") String token,
-            @PathVariable("id") String idU) throws Exception {
+            @PathVariable("idU") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         Long id = Long.valueOf(idU);
         User user = userService.findUser(id);
@@ -49,10 +49,8 @@ public class AnnonceController {
     
 
 
-    @GetMapping("/recherche/{token}")
+    @GetMapping("/recherche")
     public List<Annonce> rechercheAvancee(
-            @PathVariable("token") String token,
-            @PathVariable("id") String idU,
             @RequestParam(required = false) String motCle,
             @RequestParam(required = false) Long type,
             @RequestParam(required = false) Long marque,
@@ -66,16 +64,8 @@ public class AnnonceController {
             @RequestParam(required = false) Long pays,
             @RequestParam(required = false) int nbplace,
             @RequestParam(required = false) int nbporte,
-            @RequestParam(required = false) int status) throws Exception {
-
-        Token tok = tokenRe.findIdUtilsateurFromToken(token);
-        Long id = Long.valueOf(idU);
-
-        User user = userService.findUser(id);
-        if (tok != null && tok.isValid(id) && user.getEtat() == 5) {
-            return annonceService.rechercheAvancee(motCle, type, marque, modele, energie, boite_vitesse, annee, kilometrage, prix, couleur, pays, nbplace, nbporte, status);
-        }
-        return null; 
+            @RequestParam(required = false) int status ) {
+        return annonceService.rechercheAvancee(motCle, type, marque, modele, energie, boite_vitesse, annee, kilometrage, prix, couleur, pays, nbplace, nbporte, status );
     }
 
 
@@ -85,22 +75,22 @@ public class AnnonceController {
         Long id =Long.valueOf(idU) ;
 
         User user = userService.findUser(id);
-        if(tok!=null&&tok.isValid(id)&&user.getEtat()==5){
+        if(tok!=null&&tok.isValid(id)&&user.getEtat()==10){
             annonceService.save(comm);
             return "Réussie";
         }
         return "Vous ne pouvez pas faire ce requête";
     }
 
-    @GetMapping
+    @GetMapping("/{token}/getAll/{id}")
     public ResponseEntity<List<Annonce>> findAll(
-            @RequestParam("token") String token,
-            @RequestParam("id") String idU) throws Exception {
+            @PathVariable("token") String token,
+            @PathVariable("id") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         Long id = Long.valueOf(idU);
     
         User user = userService.findUser(id);
-        if (tok != null && tok.isValid(id) && user.getEtat() == 5) {
+        if (tok != null && tok.isValid(id) && user.getEtat() == 10) {
             List<Annonce> annonces = annonceService.findAll();
             return ResponseEntity.ok(annonces);
         } else {
@@ -116,7 +106,7 @@ public class AnnonceController {
     
             User user = userService.findUser(userId);
     
-            if (tok != null && tok.isValid(userId) && user.getEtat() == 5) {
+            if (tok != null && tok.isValid(userId) && user.getEtat() == 10) {
                 annonceService.deleteById(id);
                 return new ResponseEntity<>("Annonce supprimée avec succès", HttpStatus.OK);
             } else {
@@ -127,15 +117,15 @@ public class AnnonceController {
         }
     }
 
-    @GetMapping("/{id}")
-public ResponseEntity<Annonce> findById(@PathVariable int id, @RequestHeader("token") String token, @RequestHeader("id") String idU) {
+    @GetMapping("/{token}/getOne/{idU}/{id}")
+public ResponseEntity<Annonce> findById(@PathVariable int id, @PathVariable("token") String token, @PathVariable("idU") String idU) {
     try {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         Long userId = Long.valueOf(idU);
 
         User user = userService.findUser(userId);
 
-        if (tok != null && tok.isValid(userId) && user.getEtat() == 5) {
+        if (tok != null && tok.isValid(userId) && user.getEtat() == 10) {
             Annonce result = annonceService.findById(id);
             return ResponseEntity.ok(result);
         } else {
@@ -155,7 +145,7 @@ public ResponseEntity<Annonce> findById(@PathVariable int id, @RequestHeader("to
         
                 User user = userService.findUser(userId);
         
-                if (tok != null && tok.isValid(userId) && user.getEtat() == 5) {
+                if (tok != null && tok.isValid(userId) && user.getEtat() == 10) {
                     Annonce updatedAnnonceResult = annonceService.updateById(id, updatedAnnonce);
         
                     if (updatedAnnonceResult != null) {

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "https://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("api/marques")
 public class MarqueController {
@@ -28,10 +28,10 @@ public class MarqueController {
         this.marqueService = marqueService;
     }
 
-    @PostMapping("/{token}/create")
+    @PostMapping("/{token}/create/{id}")
     public Marque createMarque(@RequestBody Marque marque,
                                @PathVariable("token") String token,
-                               @RequestParam("id") String idU) throws Exception {
+                               @PathVariable("id") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         Long id = Long.valueOf(idU);
 
@@ -42,9 +42,9 @@ public class MarqueController {
         return null;
     }
 
-    @GetMapping("/{token}/getAll")
+    @GetMapping("/{token}/getAll/{id}")
     public List<Marque> getAllMarques(@PathVariable("token") String token,
-                                      @RequestParam("id") String idU) throws Exception {
+                                      @PathVariable("id") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         Long id = Long.valueOf(idU);
 
@@ -55,10 +55,10 @@ public class MarqueController {
         return null; 
     }
 
-    @GetMapping("/{token}/getById/{id}")
+    @GetMapping("/{token}/getById/{id}/{idU}")
     public Optional<Marque> getMarqueById(@PathVariable Long id,
                                           @PathVariable("token") String token,
-                                          @RequestParam("id") String idU) throws Exception {
+                                          @PathVariable("idU") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         id = Long.valueOf(idU);
 
@@ -69,11 +69,11 @@ public class MarqueController {
         return Optional.empty(); 
     }
 
-    @PutMapping("/{token}/update/{id}")
+    @PutMapping("/{token}/update/{id}/{idU}")
     public Marque updateMarque(@PathVariable Long id,
                                @RequestBody Marque newMarque,
                                @PathVariable("token") String token,
-                               @RequestParam("id") String idU) throws Exception {
+                               @PathVariable("idU") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
         id = Long.valueOf(idU);
 
