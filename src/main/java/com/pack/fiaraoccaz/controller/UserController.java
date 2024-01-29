@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@CrossOrigin(origins = "https://earnest-gumption-0c0eac.netlify.app/")
+@CrossOrigin(origins = "https://earnest-gumption-0c0eac.netlify.app")
 @RestController
 public class UserController {
 
