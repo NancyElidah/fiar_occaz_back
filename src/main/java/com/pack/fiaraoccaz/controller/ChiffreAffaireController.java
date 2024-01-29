@@ -27,7 +27,7 @@ public class ChiffreAffaireController {
     private UserService userService;
 
     // Endpoint pour enregistrer un nouveau chiffre d'affaire
-    @PostMapping("/nouveau-chiffre-affaire")
+    @PostMapping("/{token}/nouveau-chiffre-affaire/{id}")
     public ChiffreAffaire enregistrerChiffreAffaire(@RequestBody ChiffreAffaireRequest request,
                                                     @RequestParam("token") String token,
                                                     @RequestParam("id") String idU) throws Exception {
@@ -46,7 +46,7 @@ public class ChiffreAffaireController {
     }
 
     // Endpoint pour récupérer tous les chiffres d'affaires enregistrés
-    @GetMapping("/chiffres-affaires")
+    @GetMapping("/{token}/chiffres-affaires/{id}")
     public List<ChiffreAffaire> getAllChiffresAffaires(@RequestParam("token") String token,
                                                        @RequestParam("id") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
@@ -60,7 +60,7 @@ public class ChiffreAffaireController {
     }
 
     // Endpoint pour calculer le chiffre d'affaire net
-    @GetMapping("/calcul-chiffre-affaire-net")
+    @GetMapping("/{token}/calcul-chiffre-affaire-net/{id}")
     public double calculerChiffreAffaireNet(@RequestParam double prixVente,
                                             @RequestParam int etatAnnonce,
                                             @RequestParam double commission,
@@ -77,7 +77,7 @@ public class ChiffreAffaireController {
     }
 
     // Endpoint pour enregistrer une nouvelle vente mensuelle
-    @PostMapping("/vente-mensuelle")
+    @PostMapping("/{token}/vente-mensuelle/{id}")
     public VenteMensuelle enregistrerVenteMensuelle(@RequestBody VenteMensuelle venteMensuelle,
                                                     @RequestParam("token") String token,
                                                     @RequestParam("id") String idU) throws Exception {
@@ -97,7 +97,7 @@ public class ChiffreAffaireController {
     }
 
     // Endpoint pour récupérer les chiffres d'affaires mensuels par type
-    @GetMapping("/ventes-mensuelles/{typeId}")
+    @GetMapping("/{token}/ventes-mensuelles/{id}")
     public List<VenteMensuelle> getChiffresAffairesMensuelsParType(@PathVariable Long typeId,
                                                                    @RequestParam("token") String token,
                                                                    @RequestParam("id") String idU) throws Exception {
@@ -113,20 +113,21 @@ public class ChiffreAffaireController {
         return null; 
     }
 
-        @GetMapping("/ventes-mensuelles/annee")
-      public List<VenteMensuelle> getVentesMensuellesParAnnee(@RequestParam Long typeId,
-                                                             @RequestParam int annee,
-                                                             @RequestParam String token,
-                                                             @RequestParam String idU) throws Exception {
-        Token tok = tokenRe.findIdUtilsateurFromToken(token);
-        Long id = Long.valueOf(idU);
-    
-        User user = userService.findUser(id);
-        if (tok != null && tok.isValid(id) && user.getEtat() == 10) {
-            Type type = new Type();
-            type.setIdType(typeId);
-            return chiffreAffaireService.getVentesMensuellesParAnnee(type, annee);
-        }
-        return null;
+    @GetMapping("/{/token}/ventes-mensuelles/annee/{id}")
+  public List<VenteMensuelle> getVentesMensuellesParAnnee(@RequestParam Long typeId,
+                                                         @RequestParam int annee,
+                                                         @RequestParam ("token")String token,
+                                                         @RequestParam("id") String idU) throws Exception {
+    Token tok = tokenRe.findIdUtilsateurFromToken(token);
+    Long id = Long.valueOf(idU);
+
+    User user = userService.findUser(id);
+    if (tok != null && tok.isValid(id) && user.getEtat() == 10) {
+        Type type = new Type();
+        type.setIdType(typeId);
+        return chiffreAffaireService.getVentesMensuellesParAnnee(type, annee);
     }
+    return null;
+}
+
 }
