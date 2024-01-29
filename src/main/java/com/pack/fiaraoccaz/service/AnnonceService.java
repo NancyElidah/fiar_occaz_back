@@ -115,6 +115,16 @@ public class AnnonceService {
     }
     
 
+
+  //annonce validee
+public List<Annonce> findAll() {
+    Specification<Annonce> specification = Specification.where((root, query, builder) ->
+            builder.equal(root.get("etat"), 1));
+
+    return annonceRepository.findAll(specification);
+}
+
+
     public void save(Annonce c, Voiture voiture) {
         // Création ou mise à jour de la voiture
         Voiture savedVoiture = voitureService.createVoiture(voiture);
@@ -142,6 +152,7 @@ public class AnnonceService {
         List<Annonce> annoncelist = annonceRepository.findAll();
         return annoncelist;
     }
+
 
 
 

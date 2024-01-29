@@ -176,4 +176,6 @@ CREATE TABLE token (
     date_expiration DATE 
 
 );
-
+SELECT idVente, TO_CHAR(TO_DATE(mois || ' ' || annee, 'MM YYYY'), 'Month') as nomMois, annee, type, chiffreAffaire
+FROM vente_mensuelle
+WHERE type_id = :typeId;

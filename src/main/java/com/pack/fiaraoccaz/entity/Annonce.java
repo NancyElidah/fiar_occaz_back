@@ -23,6 +23,7 @@ public class Annonce{
     @Column(name = "etat")
     private int etat;
 
+
     // Constructeur par défaut
     public Annonce() {
     }
@@ -66,4 +67,5 @@ public class Annonce{
     public void setEtat(int etat){
         this.etat = etat;
     }
+
 }
