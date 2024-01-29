@@ -30,6 +30,15 @@ public class EnergieService {
         return energieRepository.save(energie);
     }
 
+    public Energie updateEnergie(Long id, Energie newEnergie){
+        return energieRepository.findById(id)
+            .map(existingEnergie ->{
+                existingEnergie.setEnergie(newEnergie.getEnergie());
+                return energieRepository.save(existingEnergie);
+            })
+            .orElse(null);
+    }
+
     public void deleteEnergie(Long id) {
         energieRepository.deleteById(id);
     }

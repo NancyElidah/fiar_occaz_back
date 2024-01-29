@@ -82,4 +82,22 @@ public class EnergieController {
         }
         
     }
+
+    @PutMapping("/{token}/update/{id}")
+        public Energie updateEnergie(@PathVariable Long id,
+        @RequestBody Energie newEnergie,
+        @PathVariable("token") String token,
+        @RequestParam("id") String idU) throws Exception{
+
+        Token tok = tokenRe.findIdUtilsateurFromToken(token);
+        id = Long.valueOf(idU);
+
+        User user = userService.findUser(id);
+        if (tok != null && tok.isValid(id) && user.getEtat() == 10) {
+            return energieService.updateEnergie(id, newEnergie);
+        }
+        return null; 
+    }
+
 }
+

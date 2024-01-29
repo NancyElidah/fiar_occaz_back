@@ -169,4 +169,10 @@ CREATE TABLE token (
     id_utilisateur int REFERENCES utilisateur(iduser),
     token VARCHAR(100),
     date_expiration DATE 
+<<<<<<< HEAD
 );
+=======
+
+);
+
+>>>>>>> 6c3fd54e630e195074aa4b28756a47e55e891725
