@@ -147,12 +147,6 @@ public List<Annonce> findAll() {
         }
     }
     
-  
-    public List<Annonce> findAll(){
-        List<Annonce> annoncelist = annonceRepository.findAll();
-        return annoncelist;
-    }
-
 
 
 
