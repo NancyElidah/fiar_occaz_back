@@ -76,7 +76,7 @@ public class UserController {
         return userService.findUser(id);
     }
 
-    @PostMapping("sign_up")
+    @PostMapping("/sign_up")
     public void signUp (@RequestBody User user){
         userService.insertUser(user);
     }
