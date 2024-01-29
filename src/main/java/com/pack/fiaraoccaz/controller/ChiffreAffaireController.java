@@ -113,11 +113,12 @@ public class ChiffreAffaireController {
         return null; 
     }
 
-    @GetMapping("/{token}/ventes-mensuelles/annee/{id}")
+ @GetMapping("/{token}/ventes-mensuelles/annee/{id}")
   public List<VenteMensuelle> getVentesMensuellesParAnnee(@RequestParam Long typeId,
                                                          @RequestParam int annee,
                                                          @RequestParam ("token")String token,
                                                          @RequestParam("id") String idU) throws Exception {
+    System.out.println();
     Token tok = tokenRe.findIdUtilsateurFromToken(token);
     Long id = Long.valueOf(idU);
 
