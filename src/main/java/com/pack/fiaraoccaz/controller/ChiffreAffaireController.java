@@ -112,4 +112,22 @@ public class ChiffreAffaireController {
         }
         return null; 
     }
+
+    @GetMapping("/ventes-mensuelles/annee")
+  public List<VenteMensuelle> getVentesMensuellesParAnnee(@RequestParam Long typeId,
+                                                         @RequestParam int annee,
+                                                         @RequestParam String token,
+                                                         @RequestParam String idU) throws Exception {
+    Token tok = tokenRe.findIdUtilsateurFromToken(token);
+    Long id = Long.valueOf(idU);
+
+    User user = userService.findUser(id);
+    if (tok != null && tok.isValid(id) && user.getEtat() == 10) {
+        Type type = new Type();
+        type.setIdType(typeId);
+        return chiffreAffaireService.getVentesMensuellesParAnnee(type, annee);
+    }
+    return null;
+}
+
 }
