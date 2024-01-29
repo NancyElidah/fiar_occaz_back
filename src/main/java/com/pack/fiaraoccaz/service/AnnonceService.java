@@ -138,10 +138,13 @@ public class AnnonceService {
     }
     
   
-    public List<Annonce> findAll(){
-        List<Annonce> annoncelist = annonceRepository.findAll();
-        return annoncelist;
-    }
+  //annonce validee
+public List<Annonce> findAll() {
+    Specification<Annonce> specification = Specification.where((root, query, builder) ->
+            builder.equal(root.get("etat"), 1));
+
+    return annonceRepository.findAll(specification);
+}
 
 
 
