@@ -113,7 +113,7 @@ public class ChiffreAffaireController {
         return null; 
     }
 
-    @GetMapping("/{/token}/ventes-mensuelles/annee/{id}")
+    @GetMapping("/{token}/ventes-mensuelles/annee/{id}")
   public List<VenteMensuelle> getVentesMensuellesParAnnee(@RequestParam Long typeId,
                                                          @RequestParam int annee,
                                                          @RequestParam ("token")String token,
