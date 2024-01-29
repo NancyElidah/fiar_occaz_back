@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface AnnonceRepository extends JpaRepository<Annonce, Long>, JpaSpecificationExecutor<Annonce> {
 
-    List<Annonce> findByUser(User user);
+    List<Annonce> findByiduser(User user);
 }
