@@ -141,7 +141,7 @@ public class AnnonceService {
   //annonce validee
 public List<Annonce> findAll() {
     Specification<Annonce> specification = Specification.where((root, query, builder) ->
-            builder.equal(root.get("etat"), 1));
+            builder.equal(root.get("etat"), 0));
 
     return annonceRepository.findAll(specification);
 }
