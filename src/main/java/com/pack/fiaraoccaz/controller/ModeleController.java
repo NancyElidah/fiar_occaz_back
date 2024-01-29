@@ -1,5 +1,6 @@
 package com.pack.fiaraoccaz.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.pack.fiaraoccaz.repository.TokenRepository;
 import com.pack.fiaraoccaz.service.UserService;
 
 
+@CrossOrigin(origins = "https://earnest-gumption-0c0eac.netlify.app")
 @RestController
 @RequestMapping("/modele")
 public class ModeleController {
@@ -30,7 +32,7 @@ public class ModeleController {
     }
 
     @PostMapping("/{token}/add/{id}")
-    public String saveType(@RequestBody Modele type , @PathVariable("token") String token ,@PathVariable("id") String idU )throws Exception{
+    public String save(@RequestBody Modele type , @PathVariable("token") String token ,@PathVariable("id") String idU )throws Exception{
         Token tok = tokenRe.findIdUtilsateurFromToken(token); 
         Long id =Long.valueOf(idU) ;
 
@@ -42,9 +44,16 @@ public class ModeleController {
         return "Vous ne pouvez pas faire ce requête";
     }
 
-    @GetMapping
-    public List<Modele> findall(){
-        return modeleDao.findAll();
+    @GetMapping("/{token}/getall/{id}")
+    public List<Modele> findall(@PathVariable("token") String token ,@PathVariable("id") String idU){
+        Token tok = tokenRe.findIdUtilsateurFromToken(token); 
+        Long id =Long.valueOf(idU) ;
+
+        User user = userService.findUser(id);
+        if(tok!=null && tok.isValid(id) && user.getEtat()==10){
+            return modeleDao.findAll();
+        }
+        return new ArrayList<>();
     }
 
     @DeleteMapping("/{id}")
@@ -52,18 +61,31 @@ public class ModeleController {
         modeleDao.deleteById(id);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Modele> findById(@PathVariable int id){
-        Modele result = modeleDao.findById(id);
-        return ResponseEntity.ok(result);
+    @GetMapping("/{token}/getone/{idU}/{id}")
+    public ResponseEntity<Modele> findById(@PathVariable("id") String id, @PathVariable("token") String token ,@PathVariable("idU") String idU){
+        Token tok = tokenRe.findIdUtilsateurFromToken(token); 
+        Long iduser =Long.valueOf(idU) ;
+
+        User user = userService.findUser(iduser);
+        if(tok!=null && tok.isValid(iduser) && user.getEtat()==10){
+            int idm = Integer.valueOf(id);
+            Modele result = modeleDao.findById(idm);
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/{id}")
-    public void deleteById(@PathVariable int id, @RequestBody Modele modele){
+    @PutMapping("/{token}/update/{id}/{idU}")
+    public void updateById(@PathVariable int id, @PathVariable("token") String token ,@PathVariable("idU") String idU, @RequestBody Modele modele){
         Modele f = modeleDao.findById(id);
+        Token tok = tokenRe.findIdUtilsateurFromToken(token); 
+        Long iduser =Long.valueOf(idU) ;
+
+        User user = userService.findUser(iduser);
+        if(tok!=null && tok.isValid(iduser) && user.getEtat()==10){
         if (f != null) {
             modele.setIdModele(id);
             modeleDao.save(modele);
-        }
+        }}
     }
 }

@@ -2,7 +2,9 @@ package com.pack.fiaraoccaz.service;
 
 import com.pack.fiaraoccaz.entity.Annonce;
 import com.pack.fiaraoccaz.entity.User;
+import com.pack.fiaraoccaz.entity.Voiture;
 import com.pack.fiaraoccaz.repository.AnnonceRepository;
+import com.pack.fiaraoccaz.service.VoitureService;
 
 import java.util.List;
 
@@ -18,14 +20,18 @@ import java.util.*;
 public class AnnonceService {
 
     private final AnnonceRepository annonceRepository;
+    private final VoitureService voitureService; 
 
     @Autowired
-    public AnnonceService(AnnonceRepository annonceRepository) {
+    public AnnonceService(AnnonceRepository annonceRepository, VoitureService voitureService) {
         this.annonceRepository = annonceRepository;
+        this.voitureService = voitureService;
     }
 
     @Autowired
     private UserRepository userRepository; 
+
+
 
     public Annonce validerAnnonce(Long idAnnonce) {
         Annonce annonce = annonceRepository.findById(idAnnonce).orElse(null);
@@ -109,6 +115,7 @@ public class AnnonceService {
     }
     
 
+
   //annonce validee
 public List<Annonce> findAll() {
     Specification<Annonce> specification = Specification.where((root, query, builder) ->
@@ -118,9 +125,36 @@ public List<Annonce> findAll() {
 }
 
 
-    public void save(Annonce c){
-        annonceRepository.save(c);
+    public void save(Annonce c, Voiture voiture) {
+        // Création ou mise à jour de la voiture
+        Voiture savedVoiture = voitureService.createVoiture(voiture);
+
+        if (savedVoiture != null) {
+            // Associer la voiture créée ou mise à jour à l'annonce
+            c.setVoiture(savedVoiture);
+
+            // Sauvegarder l'annonce avec la voiture associée
+            annonceRepository.save(c);
+        } else {
+            throw new VoitureCreationException("Impossible de créer ou mettre à jour la voiture.");
+        }
     }
+
+    public class VoitureCreationException extends RuntimeException {
+
+        public VoitureCreationException(String message) {
+            super(message);
+        }
+    }
+    
+  
+    public List<Annonce> findAll(){
+        List<Annonce> annoncelist = annonceRepository.findAll();
+        return annoncelist;
+    }
+
+
+
 
     public void deleteById(int id) {
         annonceRepository.deleteById((long) id);

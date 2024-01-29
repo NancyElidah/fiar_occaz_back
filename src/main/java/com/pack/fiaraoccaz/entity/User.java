@@ -24,7 +24,7 @@ public class User {
     @Column(name = "etat", nullable = false)
     private int etat;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "iduser")
     private List<Annonce> annonces = new ArrayList<>();
 
     // Constructeur par défaut

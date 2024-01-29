@@ -57,6 +57,9 @@ public class Voiture {
     @Column(name = "nbporte")
     private int nbPorte;
 
+    @Column(name="matricule")
+    private String matricule;
+
     @Column(name = "status")
     private int status;
 
@@ -68,7 +71,7 @@ public class Voiture {
     // Constructeur avec des paramètres
     public Voiture(Long idVoiture, Type type, Marque marque, Modele modele, Energie energie, BoiteVitesse boiteVitesse,
             int annee, double kilometrage, double prix, Couleur couleur, Pays provenance, int nbPlace, int nbPorte,
-            int status) {
+            String matricule, int status) {
         this.idVoiture = idVoiture;
         this.type = type;
         this.marque = marque;
@@ -82,6 +85,7 @@ public class Voiture {
         this.provenance = provenance;
         this.nbPlace = nbPlace;
         this.nbPorte = nbPorte;
+        this.matricule = matricule;
         this.status = status;
     }
 
@@ -193,6 +197,13 @@ public class Voiture {
 
     public int getStatus() {
         return status;
+    }
+
+    public String getMatricule(){
+        return matricule;
+    }
+    public void setMatricule(String matricule){
+        this.matricule = matricule;
     }
 
     public void setStatus(int status) {

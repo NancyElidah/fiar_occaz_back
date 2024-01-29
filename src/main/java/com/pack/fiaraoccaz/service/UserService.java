@@ -11,6 +11,8 @@ public class UserService {
     private UserRepository userRepository;
 
     public User loginUser(String email, String password) {
+        System.out.println(email);
+        System.out.println(password + "Pass");
         return userRepository.findByEmailAndPassword(email, password);
     }
     public User findUser(Long id){
@@ -18,10 +20,9 @@ public class UserService {
 
     }
 
-    public User signUp(User user){
+    // Autres méthodes de gestion des utilisateurs si nécessaire
+
+    public User insertUser(User user){
         return userRepository.save(user);
-
     }
-
-   
 }
