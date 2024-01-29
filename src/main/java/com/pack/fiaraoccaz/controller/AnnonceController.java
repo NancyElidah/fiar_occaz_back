@@ -71,17 +71,30 @@ public class AnnonceController {
 
 
     @PostMapping("/{token}/add/{id}")
-    public String save(@RequestBody Annonce comm, @PathVariable("token") String token ,@PathVariable("id") String idU )throws Exception{
-        Token tok = tokenRe.findIdUtilsateurFromToken(token); 
-        Long id =Long.valueOf(idU) ;
-
+    public String save(@RequestBody Annonce comm, @PathVariable("token") String token, @PathVariable("id") String idU) throws Exception {
+        Token tok = tokenRe.findIdUtilsateurFromToken(token);
+        Long id = Long.valueOf(idU);
+    
         User user = userService.findUser(id);
-        if(tok!=null&&tok.isValid(id)&&user.getEtat()==10){
-            annonceService.save(comm);
-            return "Réussie";
+        if (tok != null && tok.isValid(id) && user.getEtat() == 10) {
+            
+            try {
+                annonceService.save(comm, comm.getVoiture());
+                return "Réussie";
+            } catch (VoitureCreationException e) {
+                return "Échec de la création ou de la mise à jour de la voiture.";
+            }
         }
-        return "Vous ne pouvez pas faire ce requête";
+        return "Vous ne pouvez pas faire cette requête";
     }
+
+    public class VoitureCreationException extends RuntimeException {
+
+        public VoitureCreationException(String message) {
+            super(message);
+        }
+    }
+    
 
     @GetMapping("/{token}/getAll/{id}")
     public ResponseEntity<List<Annonce>> findAll(

@@ -62,6 +62,7 @@ create table voiture(
     provenance int references pays(idpays),
     nbplace int,
     nbporte int,
+    matricule varchar(50),
     status int
 );
 
