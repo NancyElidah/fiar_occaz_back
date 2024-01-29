@@ -28,7 +28,7 @@ public class EnergieController {
         this.energieService = energieService;
     }
 
-    @GetMapping("/{token}/getAll")
+    @GetMapping("/{token}/getAll/{id}")
     public List<Energie> getAllEnergies(@PathVariable("token") String token,
                                         @RequestParam("id") String idU) throws Exception {
         Token tok = tokenRe.findIdUtilsateurFromToken(token);
@@ -55,7 +55,7 @@ public class EnergieController {
         return Optional.empty(); 
     }
 
-    @PostMapping("/{token}/save")
+    @PostMapping("/{token}/save/{id}")
     public Energie saveEnergie(@RequestBody Energie energie,
                                 @PathVariable("token") String token,
                                 @RequestParam("id") String idU) throws Exception {
