@@ -60,8 +60,34 @@ public class ChiffreAffaireService {
         return venteMensuelleRepository.save(venteMensuelle);
     }
 
-    // Méthode pour récupérer les chiffres d'affaires mensuels par type
+     @Transactional(readOnly = true)
     public List<VenteMensuelle> getChiffresAffairesMensuelsParType(Type type) {
-        return venteMensuelleRepository.findByType(type);
+        String sql = "SELECT idVente, TO_CHAR(TO_DATE(mois || ' ' || annee, 'MM YYYY'), 'Month') as Mois, annee, type, chiffreAffaire " +
+                     "FROM vente_mensuelle " +
+                     "WHERE idtype = :idtype";
+
+        Query query = entityManager.createNativeQuery(sql, "NomMoisMapping");
+
+        query.setParameter("idtype", type.getIdType());
+
+        List<VenteMensuelle> result = query.getResultList();
+
+        return result;
     }
+
+    @Transactional(readOnly = true)
+    public List<VenteMensuelle> getVentesMensuellesParAnnee(Type type, int annee) {
+    String sql = "SELECT idVente, mois, annee, type, chiffreAffaire " +
+                 "FROM vente_mensuelle " +
+                 "WHERE idtype = :idtype AND annee = :annee";
+
+    Query query = entityManager.createNativeQuery(sql, "NomMoisMapping");
+
+    query.setParameter("idtype", type.getIdType());
+    query.setParameter("annee", annee);
+
+    List<VenteMensuelle> result = query.getResultList();
+
+    return result;
+}
 }
