@@ -79,7 +79,7 @@ public class ChiffreAffaireService {
     public List<VenteMensuelle> getVentesMensuellesParAnnee(Type type, int annee) {
      String sql = "SELECT idVente, TO_CHAR(TO_DATE(mois || ' ' || annee, 'MM YYYY'), 'Month') as Mois, annee, type, chiffreAffaire " +
                      "FROM vente_mensuelle " +
-                     "WHERE idtype = :idtype" AND annee = :annee";
+                     "WHERE idtype = :idtype AND annee = :annee";
 
     Query query = entityManager.createNativeQuery(sql, "NomMoisMapping");
 
